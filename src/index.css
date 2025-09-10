@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root color variables aligned to School Match Quiz branding */
+:root {
+  --primary-hue: 206;
+  --primary-color: hsl(var(--primary-hue), 75%, 52%);
+  --primary-color-dark: hsl(var(--primary-hue), 75%, 42%);
+  --primary-color-light: hsl(var(--primary-hue), 80%, 90%);
+  --accent-color: hsl(165, 72%, 40%);
+  --accent-soft: hsla(165, 72%, 40%, 0.18);
+  --text-color: #1e293b;
+  --text-color-light: #64748b;
+  --flip-perspective: 900px;
+  --shadow-soft: 0 4px 10px rgba(59, 130, 246, 0.12);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body setup */
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  color: var(--text-color);
+  background-color: var(--primary-color-light);
+}
+
+/* Container utility */
+.container-narrow {
+  @apply max-w-[1140px] mx-auto px-5 md:px-8;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white border border-indigo-200 rounded-3xl shadow-soft p-6;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.3s ease;
+}
+.card:hover {
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+}
+
+/* Buttons styling */
+.btn {
+  @apply inline-flex items-center justify-center rounded-full font-extrabold tracking-widest uppercase transition-all duration-300;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+/* Primary button */
+.btn-primary {
+  @apply text-white border-0 shadow-lg;
+  background: linear-gradient(90deg, hsl(var(--primary-hue),75%,52%), hsl(var(--primary-hue),85%,57%));
+  box-shadow: 0 8px 24px hsla(var(--primary-hue),75%,52%,0.4);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(90deg, hsl(var(--primary-hue),85%,60%), hsl(var(--primary-hue),90%,65%));
+  box-shadow: 0 12px 36px hsla(var(--primary-hue),85%,60%,0.5);
+  outline: none;
+}
+
+/* Ghost button */
+.btn-ghost {
+  @apply bg-transparent;
+  color: var(--primary-color);
+}
+.btn-ghost:hover,
+.btn-ghost:focus {
+  @apply text-primary-color-dark bg-primary-color-light;
+  outline: none;
+}
+
+/* White button */
+.btn-white {
+  @apply bg-white border border-white text-primary-color;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.btn-white:hover,
+.btn-white:focus {
+  @apply bg-indigo-50 text-primary-color-dark border-indigo-100;
+  outline: none;
+}
+
+/* Badge chip */
+.badge-chip {
+  @apply grid grid-cols-[auto_auto] items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-indigo-200 text-indigo-700 font-semibold shadow-sm;
+  user-select: none;
+}
+
+/* Image styling - ensure images are responsive and well sized */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+/* Specific image container to control max width and centering */
+.img-container {
+  max-width: 1237px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Flip animation */
+@keyframes flipUp {
+  0% {
+    transform: rotateX(0deg) translateZ(0);
+    filter: blur(0);
+  }
+  49% {
+    transform: rotateX(-90deg) translateZ(0);
+    filter: blur(1.2px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotateX(90deg) translateZ(0);
+    filter: blur(1.2px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotateX(0deg) translateZ(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.flip {
+  animation: flipUp 620ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+/* Header stickiness and blur */
+.header-blur {
+  @apply bg-white/80 backdrop-blur-sm border-b border-indigo-200 shadow-sm;
+  will-change: backdrop-filter;
+}
+
+/* Text glow utility */
+.text-indigo-glow {
+  text-shadow: 0 0 8px hsl(var(--primary-hue), 80%, 65%);
+}
+
+/* Navigation underline pill hover effect */
+.nav-pill-hover {
+  position: relative;
+  overflow: hidden;
+}
+.nav-pill-hover::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  bottom: 2px;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary-hue), 70%, 60%),
+    hsl(165, 70%, 40%)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  border-radius: 9999px;
+}
+.nav-pill-hover:hover::after,
+.nav-pill-hover.active::after {
+  transform: scaleX(1);
+}
+
+/* Scrollbar hide helper */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* --- Custom utilities layer for CSS variable based classes --- */
+@layer utilities {
+  .text-primary-color {
+    color: var(--primary-color) !important;
+  }
+  .text-primary-color-dark {
+    color: var(--primary-color-dark) !important;
+  }
+  .bg-primary-color-light {
+    background-color: var(--primary-color-light) !important;
+  }
+}
